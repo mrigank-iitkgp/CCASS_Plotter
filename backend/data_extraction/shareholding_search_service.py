@@ -46,8 +46,15 @@ class ShareholdingSearchService(object):
                     values.append(val.get_text())
                 res.append(values)
             df = pd.DataFrame(res , columns=columns)
+            df["participant_id"] = df["participant_id"].astype(str)
+            df["name"] = df["name"].astype(str)
+            df["address"] = df["address"].astype(str)
+            df["shareholding"] = df["shareholding"].str.replace("," , "").astype(int)
+            df["percent_share"] = df["percent_share"].str.replace("%" , "").astype(float)
+            # print(df.dtypes)
+            # print(df.head())
         except Exception as e:
-            print(f"Error finding the shareholding date : {str(e)}")
+            print(f"Error finding the shareholding data : {str(e)}")
         finally:
             return stockName , df
 
@@ -69,4 +76,8 @@ class ShareholdingSearchService(object):
             "shareholding" : parsed_df
         }
         return holdingsDataMap
-        
+
+# Object creation for testing purpose
+
+# test = ShareholdingSearchService()
+# test.getShareholdingData("00001" , "20220909" , "2022/09/07")
