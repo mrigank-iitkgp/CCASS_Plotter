@@ -7,5 +7,5 @@ app = FastAPI()
 
 @app.get("/api/gettopkshareholders")
 def get_top_k_shareholders(stockCode , startDate , endDate , k):
-    result = TrendPlotter.getPlotData(stockCode , ShareholdingData() , startDate , endDate , k)
+    result = TrendPlotter.getPlotData(stockCode , ShareholdingData() , startDate , endDate , int(k))
     return result

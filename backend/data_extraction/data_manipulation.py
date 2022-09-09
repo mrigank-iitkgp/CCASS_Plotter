@@ -1,5 +1,5 @@
 from datetime import date , datetime , timedelta
-from shareholding_search_service import ShareholdingSearchService
+from data_extraction.shareholding_search_service import ShareholdingSearchService
 import pandas as pd
 
 class ShareholdingData(object):

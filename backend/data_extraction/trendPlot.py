@@ -1,5 +1,5 @@
-from shareholding_search_service import ShareholdingSearchService
-from data_manipulation import ShareholdingData
+from data_extraction.shareholding_search_service import ShareholdingSearchService
+from data_extraction.data_manipulation import ShareholdingData
 
 class TrendPlotter:
     def __init__(self):
@@ -32,11 +32,23 @@ class TrendPlotter:
         fullShareholderData = sorted(fullShareholderData , key= lambda x : x['endDate'])
         topKShareholders = shareholdingData_obj.topKShareholders(stockCode , endDate , k)
         topKShareholders['shareholding_data'] = TrendPlotter.filterData(fullShareholderData , topKShareholders)
+        topKShareholders_list = []
+        for index , row in topKShareholders['holders'].iterrows():
+            shareholders_data = {
+                "participant_id" : row['participant_id'],
+                "name" : row['name'],
+                "address": row['address'],
+                "shareholding": row['shareholding'],
+                "percent_share": row['percent_share']
+            }
+            topKShareholders_list.append(shareholders_data)
+        topKShareholders['holders'] = topKShareholders_list
+        # print(topKShareholders)
         # print(topKShareholders['shareholding_data'])
         return topKShareholders
 
 
 
-# shareholdingData_obj = ShareholdingData()
-# test = TrendPlotter()
-# test.getPlotData("00001" , shareholdingData_obj , "2022-09-01" , "2022-09-04" , 10)
+shareholdingData_obj = ShareholdingData()
+test = TrendPlotter()
+test.getPlotData("00001" , shareholdingData_obj , "2022-09-01" , "2022-09-04" , 10)

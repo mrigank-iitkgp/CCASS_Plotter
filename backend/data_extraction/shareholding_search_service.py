@@ -8,7 +8,7 @@ import pandas as pd
 
 class ShareholdingSearchService(object):
     def __init__(self):
-        self.wkdir = os.getcwd()
+        self.wkdir = os.path.dirname(__file__)
         self.metaFilePath = os.path.join(self.wkdir , "meta.json")
         self.headerFilePath = os.path.join(self.wkdir , "headers.json")
         with open(self.metaFilePath) as f:
