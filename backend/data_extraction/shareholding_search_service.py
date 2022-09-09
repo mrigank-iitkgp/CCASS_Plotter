@@ -73,7 +73,7 @@ class ShareholdingSearchService(object):
             "stockCode" : stockCode,
             "stockName" : stockName,
             "endDate" : shareholdingDate,
-            "shareholding" : parsed_df
+            "shareholding_data" : parsed_df
         }
         return holdingsDataMap
 
