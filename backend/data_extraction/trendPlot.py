@@ -1,5 +1,6 @@
 from data_extraction.shareholding_search_service import ShareholdingSearchService
 from data_extraction.data_manipulation import ShareholdingData
+from data_extraction.dataPreparation import DataPreparation
 
 class TrendPlotter:
     def __init__(self):
@@ -45,10 +46,13 @@ class TrendPlotter:
         topKShareholders['holders'] = topKShareholders_list
         # print(topKShareholders)
         # print(topKShareholders['shareholding_data'])
-        return topKShareholders
+        chartData = DataPreparation.createLineChartData(topKShareholders)
+        return {
+            "Result" : topKShareholders,
+            "Chart" : chartData
+        }
 
 
-
-shareholdingData_obj = ShareholdingData()
-test = TrendPlotter()
-test.getPlotData("00001" , shareholdingData_obj , "2022-09-01" , "2022-09-04" , 10)
+# shareholdingData_obj = ShareholdingData()
+# test = TrendPlotter()
+# print(test.getPlotData("00001" , shareholdingData_obj , "2022-09-01" , "2022-09-04" , 10))
