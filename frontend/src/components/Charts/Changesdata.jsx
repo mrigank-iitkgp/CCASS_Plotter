@@ -1,10 +1,9 @@
 import React from 'react';
 import axios from 'axios';
+import { GridComponent, ColumnsDirective, ColumnDirective, Resize, Sort, ContextMenu, Filter, Page, ExcelExport, PdfExport, Inject } from '@syncfusion/ej2-react-grids';
 import { useState , useEffect } from 'react';
-import { TextBoxComponent } from "@syncfusion/ej2-react-inputs";
-import { ChartComponent, SeriesCollectionDirective, SeriesDirective, Inject, LineSeries, DateTime, Legend, Tooltip, Logarithmic } from '@syncfusion/ej2-react-charts';
 import { DatePickerComponent , DateRangePickerComponent } from '@syncfusion/ej2-react-calendars';
-import { lineChartData, lineCustomSeries , LinePrimaryXAxis, LinePrimaryYAxis , chartTitle } from '../../data/dummy';
+import { dailyTxn , holdingChanges , holdingMenuItems , holdingGrid , txnGrid , txnMenuItems } from '../../data/dummy';
 import { useStateContext } from '../../contexts/ContextProvider';
 import { TooltipComponent } from '@syncfusion/ej2-react-popups';
 import Button from '../Button';
@@ -16,16 +15,17 @@ const floatFocus = (args) => {
 const floatBlur = (args) => {
   args.target.parentElement.classList.remove('e-input-focus');
 };
-let ChartData = lineCustomSeries;
-let ChartTitle = chartTitle;
-let shareholdingSeries = [];
-const LineChart = (props) => {
-  const { currentMode } = useStateContext();
+let HoldingChanges = holdingChanges;
+let DailyTxn =dailyTxn;
+
+const Changesdata = () => {
+
   const [stockData , setStockData] = useState({
     stockCode:"",
     startDate:"",
     endDate:"",
-    k:""
+    k:"",
+    percentage:""
   });
 
 
@@ -38,12 +38,11 @@ const LineChart = (props) => {
     setStockData({...stockData , [data]:val});
   }
   // console.log(stockData.endDate.getFullYear())
-  const [chartData , setchartData] = useState(ChartData);
-  const [title , setTitle] = useState(ChartTitle);
-  const [shareholdingData , setshareholdingData] = useState(shareholdingSeries);
+  const [holdingData , setholdingData] = useState(HoldingChanges);
+  const [txnData , settxnData] = useState(DailyTxn);
   const postRequest = () => {
     //http://127.0.0.1:8000/api/gettopkshareholders?stockCode=00001&startDate=2022-09-01&endDate=2022-09-02&k=10
-    let baseUrl = "http://127.0.0.1:8000/api/gettopkshareholders";
+    let baseUrl = "http://127.0.0.1:8000/api/gettransactions";
     let startDate = new Date(stockData.startDate);
     var startYear = startDate.toLocaleString("default", { year: "numeric" });
     var startMonth = startDate.toLocaleString("default", { month: "2-digit" });
@@ -58,7 +57,7 @@ const LineChart = (props) => {
     console.log(formattedEndDate)
     let url = baseUrl + "?" + "stockCode=" + stockData.stockCode + "&startDate=" + 
     formattedStartDate + "&endDate=" + 
-    formattedEndDate + "&k=" + stockData.k;
+    formattedEndDate + "&k=" + stockData.k + "&thresholdPercentage=" + stockData.percentage;
     console.log(url)
 
     const config = {
@@ -68,46 +67,19 @@ const LineChart = (props) => {
     };
 
     getAsyncHistoricalHoldings(url).then(response =>{
-      ChartData = response['Chart'];
-      console.log(response);
-      ChartTitle = response['Result'].stockName;
-      shareholdingSeries = [];
-      setchartData(ChartData);
-      setTitle(ChartTitle);
-      console.log(title);
-      for(let idx in ChartData){
-        console.log(ChartData[idx].dataSource);
-        for(let i in ChartData[idx].dataSource) {
-          // console.log(chartData[idx].dataSource[i].x)
-          let date = new Date(chartData[idx].dataSource[i].x);
-          shareholdingSeries.push(chartData[idx].dataSource[i].y)
-          //console.log(date)
-          chartData[idx].dataSource[i].x = date;
-          // console.log(chartData[idx].dataSource[i].x)
-        }
-        // console.log(chartData[idx].marker.visible)
-        chartData[idx].marker.visible=true;
-      }
-      // console.log(chartData);
-      setshareholdingData(shareholdingSeries);
-      console.log(shareholdingData);
-      let maxVal = -1;
-      let minVal = 1000000000000;
-      for(let idx in shareholdingData) {
-        maxVal = Math.max(maxVal , shareholdingData[idx]);
-        minVal = Math.min(minVal , shareholdingData[idx]);
-      }
-      console.log(maxVal);
-      console.log(minVal);
-      LinePrimaryYAxis.maximum = maxVal;
-      LinePrimaryYAxis.minimum = minVal;
-      LinePrimaryYAxis.interval = maxVal / 10;
+      console.log(response)
+      HoldingChanges = response.holdingChanges;
+      console.log(HoldingChanges);
+      setholdingData(HoldingChanges);
+      DailyTxn = response.dailyTxn;
+      console.log(DailyTxn);
+      settxnData(DailyTxn);
     });
   }
 
   return (
     <div className="container">
-        <TooltipComponent id="details" target='.e-info' position='RightCenter'>
+      <TooltipComponent id="details" target='.e-info' position='RightCenter'>
       <form id="details" role="form">
           <table>
               <tr>
@@ -143,6 +115,14 @@ const LineChart = (props) => {
                   placeholder="Enter the value of k" / >
                   </td>
               </tr>
+              <tr>
+              <td>
+                  <input type="text" className="e-input" name="percentage"
+                  value={stockData.percentage}
+                  onChange={handleInputs} 
+                  placeholder="Enter threshold percentage value" / >
+                  </td>
+              </tr>
           </table>
       </form>
     </TooltipComponent>
@@ -151,24 +131,39 @@ const LineChart = (props) => {
       <Button color="white" bgColor="blue" text="Submit" borderRadius="10px" size="md" postRequest={postRequest}/>
     </div>
     <br></br>
-    <ChartComponent
-      id="line-chart"
-      height="420px"
-      primaryXAxis={LinePrimaryXAxis}
-      primaryYAxis={LinePrimaryYAxis}
-      chartArea={{ border: { width: 0 } }}
-      tooltip={{ enable: true }}
-      background={currentMode === 'Dark' ? '#33373E' : '#fff'}
-      legendSettings={{ background: 'white' }}
-    >
-      <Inject services={[LineSeries, DateTime, Legend, Tooltip, Logarithmic]} />
-      <SeriesCollectionDirective>
-        {/* eslint-disable-next-line react/jsx-props-no-spreading */}
-        {chartData.map((item, index) => <SeriesDirective key={index} {...item} />)}
-      </SeriesCollectionDirective>
-    </ChartComponent>
-  </div>
-  );
-};
+      <GridComponent
+        id="gridcomp"
+        dataSource={txnData}
+        allowPaging
+        allowSorting
+        allowExcelExport
+        allowPdfExport
+        contextMenuItems={txnMenuItems}
+      >
+        <ColumnsDirective>
+          {/* eslint-disable-next-line react/jsx-props-no-spreading */}
+          {txnGrid.map((item, index) => <ColumnDirective key={index} {...item} />)}
+        </ColumnsDirective>
+        <Inject services={[Resize, Sort, ContextMenu, Filter, Page, ExcelExport, PdfExport]} />
+      </GridComponent>
+      <br></br>
+      <GridComponent
+        id="gridcomp"
+        dataSource={holdingData}
+        allowPaging
+        allowSorting
+        allowExcelExport
+        allowPdfExport
+        contextMenuItems={holdingMenuItems}
+      >
+        <ColumnsDirective>
+          {/* eslint-disable-next-line react/jsx-props-no-spreading */}
+          {holdingGrid.map((item, index) => <ColumnDirective key={index} {...item} />)}
+        </ColumnsDirective>
+        <Inject services={[Resize, Sort, ContextMenu, Filter, Page, ExcelExport, PdfExport]} />
+      </GridComponent>
+    </div>
+  )
+}
 
-export default LineChart;
+export default Changesdata

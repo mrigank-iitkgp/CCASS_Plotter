@@ -4,7 +4,8 @@ import { FiSettings} from 'react-icons/fi';
 import { TooltipComponent } from '@syncfusion/ej2-react-popups';
 import './App.css'
 import { Navbar , Footer , Sidebar , ThemeSettings , Introduction, LineChart } from './components';
-import { Pie , Line , ColorPicker , Calendar} from './pages';
+import { Line , ColorPicker , Calendar , Changes } from './pages';
+import { Datatable } from './pages';
 
 import { useStateContext } from './contexts/ContextProvider';
 
@@ -47,7 +48,8 @@ const App = () => {
                 <Route path="/Intoduction" element={(<Introduction />)} />
                 {/* Charts component */}
                 <Route path="/line" element={<Line />} />
-                <Route path="/pie" element={<Pie />} />
+                <Route path="/datatable" element={<Datatable />} />
+                <Route path="/dailychanges" element={<Changes />} />
               </Routes>
             </div>
           </div>
