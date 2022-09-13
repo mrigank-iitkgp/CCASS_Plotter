@@ -7,4 +7,5 @@ export { default as LineChart } from './Charts/LineChart';
 export { default as Changesdata } from './Charts/Changesdata';
 export { default as ChartsHeader } from './ChartsHeader';
 export { default as Header } from './Header';
-export { default as Introduction} from './Introduction'
+export { default as Introduction} from './Introduction';
+export { default as Common } from './Common';

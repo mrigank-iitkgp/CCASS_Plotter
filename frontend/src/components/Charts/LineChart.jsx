@@ -43,7 +43,7 @@ const LineChart = (props) => {
   const [shareholdingData , setshareholdingData] = useState(shareholdingSeries);
   const postRequest = () => {
     //http://127.0.0.1:8000/api/gettopkshareholders?stockCode=00001&startDate=2022-09-01&endDate=2022-09-02&k=10
-    let baseUrl = "http://0.0.0.0:8080/api/gettopkshareholders";
+    let baseUrl = "http://mgk-env-1.eba-98mj6smr.ap-south-1.elasticbeanstalk.com/api/gettopkshareholders";
     let startDate = new Date(stockData.startDate);
     var startYear = startDate.toLocaleString("default", { year: "numeric" });
     var startMonth = startDate.toLocaleString("default", { month: "2-digit" });

@@ -12,6 +12,7 @@ const Sidebar = () => {
   const { activeMenu , setActiveMenu , screenSize}  = useStateContext();
 
   const handleCloseSidebar = () => {
+    // console.log(link)
     if(activeMenu && screenSize <= 900) {
       setActiveMenu(false);
     }

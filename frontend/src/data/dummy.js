@@ -19,7 +19,7 @@ export const links = [
       title: 'Dashboard',
       links: [
         {
-          name: 'Introduction',
+          name: 'introduction',
           icon: <MdSpaceDashboard />,
         },
       ],

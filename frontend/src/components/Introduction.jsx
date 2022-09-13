@@ -10,8 +10,18 @@ const Introduction = () => {
         lg:w-full p-8 pt-6 m-3 bg-hero-pattern bg-no-repeat bg-cover bg-center">
           <div className="flex justify-between items-center">
             <div>
-              <p className="font-bold text-gray-400">Hey There!!</p>
-              <p className="text-2x1"> Explore the menu for different functionalities</p>
+              <p className="font-bold text-gray-400">Welcome to CCASS Plotter!!</p>
+              <p className="font-bold"> Refer to charts section for different functionalities
+                <ul className="font-extralight">
+                  1. Line page provides the trend plot of the top shareholders for specific stock code
+                </ul>
+                <ul className="font-extralight">
+                  2. Datatable page gives the full data of the top shareholder for the specific stock code
+                </ul>
+                <ul className="font-extralight">
+                  3. Daily changes page gives functionality of transaction finder
+                </ul>
+              </p>
             </div>
           </div>
         </div>
@@ -20,4 +30,4 @@ const Introduction = () => {
   )
 }
 
-export default Introduction
+export default Introduction;

@@ -3,7 +3,7 @@ import { BrowserRouter , Routes , Route} from 'react-router-dom';
 import { FiSettings} from 'react-icons/fi';
 import { TooltipComponent } from '@syncfusion/ej2-react-popups';
 import './App.css'
-import { Navbar , Footer , Sidebar , ThemeSettings , Introduction, LineChart } from './components';
+import { Navbar , Footer , Sidebar , ThemeSettings , LineChart , Introduction , Common} from './components';
 import { Line , ColorPicker , Calendar , Changes } from './pages';
 import { Datatable } from './pages';
 
@@ -44,10 +44,10 @@ const App = () => {
             <div>
               <Routes>
                 {/* Homepage */}
-                <Route path="/" element={(<Introduction />)} />
-                <Route path="/Intoduction" element={(<Introduction />)} />
+                <Route path="/" element={<Introduction />} />
+                <Route path="/introduction" element={<Introduction />} />
                 {/* Charts component */}
-                <Route path="/line" element={<Line />} />
+                <Route path="/line" element={(<Line />)} />
                 <Route path="/datatable" element={<Datatable />} />
                 <Route path="/dailychanges" element={<Changes />} />
               </Routes>
