@@ -42,7 +42,7 @@ const Changesdata = () => {
   const [txnData , settxnData] = useState(DailyTxn);
   const postRequest = () => {
     //http://127.0.0.1:8000/api/gettopkshareholders?stockCode=00001&startDate=2022-09-01&endDate=2022-09-02&k=10
-    let baseUrl = "http://127.0.0.1:8000/api/gettransactions";
+    let baseUrl = "http://0.0.0.0:8080/api/gettransactions";
     let startDate = new Date(stockData.startDate);
     var startYear = startDate.toLocaleString("default", { year: "numeric" });
     var startMonth = startDate.toLocaleString("default", { month: "2-digit" });

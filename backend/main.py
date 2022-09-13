@@ -30,7 +30,7 @@ def get_top_k_shareholders(stockCode , startDate , endDate , k):
     return result
 
 
-# http://127.0.0.1:8000/api/gettransactions?stockCode=00001&startDate=2022-09-01&endDate=2022-09-02&k=2&thresholdPercentage=1
+# http://0.0.0.0:8080/api/gettransactions?stockCode=00001&startDate=2022-09-01&endDate=2022-09-02&k=2&thresholdPercentage=1
 @app.get("/api/gettransactions")
 def get_transactions(stockCode , startDate , endDate , k , thresholdPercentage):
     result = TrendPlotter.getTransactionData(stockCode , ShareholdingData() , startDate , endDate , int(k) , float(thresholdPercentage))

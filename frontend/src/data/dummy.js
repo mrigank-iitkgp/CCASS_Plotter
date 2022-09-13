@@ -101,31 +101,68 @@ export const links = [
   };
 
   export const lineCustomSeries = [
-    { dataSource: lineChartData[0],
-      xName: 'x',
-      yName: 'y',
-      name: 'Germany',
-      width: '2',
-      marker: { visible: true, width: 10, height: 10 },
-      type: 'Line' },
-  
-    { dataSource: lineChartData[1],
-      xName: 'x',
-      yName: 'y',
-      name: 'England',
-      width: '2',
-      marker: { visible: true, width: 10, height: 10 },
-      type: 'Line' },
-  
-    { dataSource: lineChartData[2],
-      xName: 'x',
-      yName: 'y',
-      name: 'India',
-      width: '2',
-      marker: { visible: true, width: 10, height: 10 },
-      type: 'Line' },
-  
-  ];
+    {
+        "dataSource": [
+            {"x": new Date(2022 , 9 , 1), "y": 1232290463},
+            {"x": new Date(2022 , 9 , 2), "y": 1231191265},
+        ],
+        "xName": "x",
+        "yName": "y",
+        "name": "THE HONGKONG AND SHANGHAI BANKING",
+        "width": "2",
+        "marker": {"visible": "true", "width": 10, "height": 10},
+        "type": "Line",
+    },
+    {
+        "dataSource": [
+            {"x": new Date(2022 , 9 , 1), "y": 255127089},
+            {"x": new Date(2022 , 9 , 2), "y": 254333750},
+        ],
+        "xName": "x",
+        "yName": "y",
+        "name": "CITIBANK N.A.",
+        "width": "2",
+        "marker": {"visible": "true", "width": 10, "height": 10},
+        "type": "Line",
+    },
+    {
+        "dataSource": [
+            {"x": new Date(2022 , 9 , 1), "y": 250532905},
+            {"x": new Date(2022 , 9 , 2), "y": 248938320},
+        ],
+        "xName": "x",
+        "yName": "y",
+        "name": "JPMORGAN CHASE BANK, NATIONAL",
+        "width": "2",
+        "marker": {"visible": "true", "width": 10, "height": 10},
+        "type": "Line",
+    },
+    {
+        "dataSource": [
+            {"x": new Date(2022 , 9 , 1), "y": 160733912},
+            {"x": new Date(2022 , 9 , 2), "y": 160031142},
+        ],
+        "xName": "x",
+        "yName": "y",
+        "name": "STANDARD CHARTERED BANK (HONG KONG) LTD",
+        "width": "2",
+        "marker": {"visible": "true", "width": 10, "height": 10},
+        "type": "Line",
+    },
+    {
+        "dataSource": [
+            {"x": new Date(2022 , 9 , 1), "y": 73728859},
+            {"x": new Date(2022 , 9 , 2), "y": 73823359},
+        ],
+        "xName": "x",
+        "yName": "y",
+        "name": "BANK OF CHINA (HONG KONG) LTD",
+        "width": "2",
+        "marker": {"visible": "true", "width": 10, "height": 10},
+        "type": "Line",
+    },
+];
+
 
   export const shareholding_data = 
   [
@@ -415,7 +452,7 @@ export const holdingGrid = [
     headerText: 'Change in Shareholding',
     // format: 'C2',
     textAlign: 'Center',
-    width: '120',
+    width: '200',
   },
   {
     field: 'percent_share',
@@ -429,7 +466,7 @@ export const holdingGrid = [
     headerText: 'Change in % Share',
     // format: 'C2',
     textAlign: 'Center',
-    width: '100',
+    width: '200',
   },
 ];
 
@@ -472,14 +509,14 @@ export const txnGrid = [
     headerText: 'Change in Shareholding',
     // format: 'C2',
     textAlign: 'Center',
-    width: '120',
+    width: '200',
   },
   {
     field: 'shareholdingChangePercent',
     headerText: 'Change in % Share',
     // format: 'C2',
     textAlign: 'Center',
-    width: '100',
+    width: '200',
   },
   {
     field: 'action',
