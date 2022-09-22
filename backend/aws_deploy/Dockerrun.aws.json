@@ -1,7 +1,7 @@
 {
     "AWSEBDockerrunVersion": "1",
     "Image": {
-      "Name": "628732200135.dkr.ecr.ap-south-1.amazonaws.com/mgk-backend",
+      "Name": "385267510662.dkr.ecr.ap-south-1.amazonaws.com/mgk-backend",
       "Update": "true"
     },
     "Ports": [
