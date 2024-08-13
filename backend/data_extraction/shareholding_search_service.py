@@ -7,7 +7,7 @@ from bs4 import BeautifulSoup
 import pandas as pd
 
 class ShareholdingSearchService(object):
-    def __init__(self):
+    def __init__(self) -> None:
         self.wkdir = os.path.dirname(__file__)
         self.metaFilePath = os.path.join(self.wkdir , "meta.json")
         self.headerFilePath = os.path.join(self.wkdir , "headers.json")
